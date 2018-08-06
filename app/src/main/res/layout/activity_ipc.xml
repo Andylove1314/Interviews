@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/ipc_intent_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="intent同进程通信"
+        android:textAllCaps="false"/>
+
+
+    <Button
+        android:id="@+id/ipc_intent_third"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="intent跨进程通信"
+        android:textAllCaps="false"/>
+
+
+    <Button
+        android:id="@+id/ipc_contentprovider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ContentProvider跨进程通信获取通讯录"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/ipc_binder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="aidl音乐播放"
+        android:textAllCaps="false"/>
+
+
+    <Button
+        android:id="@+id/ipc_binder_pause"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="aidl暂停音乐播放"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/ipc_binder_stop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="aidl停止音乐播放"
+        android:textAllCaps="false"/>
+
+</LinearLayout>
