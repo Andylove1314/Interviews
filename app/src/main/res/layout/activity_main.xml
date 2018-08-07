@@ -21,4 +21,11 @@
         android:layout_height="wrap_content"
         android:text="IPC通信"/>
 
+
+    <Button
+        android:id="@+id/interview_leak"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="内存泄露"/>
+
 </LinearLayout>
