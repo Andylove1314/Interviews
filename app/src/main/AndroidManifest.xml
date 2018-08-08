@@ -22,14 +22,19 @@
         </activity>
         <activity android:name=".ipc.IPCActivity" />
 
-        <!--音乐播放服务进程-->
+        <!-- 音乐播放服务进程 -->
         <service
             android:name=".ipc.MusicService"
             android:enabled="true"
             android:exported="true"
-            android:process=":music"/>
+            android:process=":music" />
 
-        <activity android:name=".leak.LeakActivity"/>
+        <activity android:name=".leak.LeakActivity" />
+
+        <service
+            android:name=".leak.MyService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

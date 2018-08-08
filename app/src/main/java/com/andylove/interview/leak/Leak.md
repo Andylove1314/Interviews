@@ -94,7 +94,8 @@
         @Override
          protected void onDestroy() {
            super.onDestroy();
-           mThread.close();
+           thread.stop();
+           task.cancel(true);
          }
        
     （5）不用的资源未关闭导致内存泄漏
