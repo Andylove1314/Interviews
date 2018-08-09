@@ -101,7 +101,7 @@ public class LeakActivity extends Activity {
         //再次加强保险
         mHandler.removeCallbacksAndMessages(null);
         //线程再次加强保险
-        thread.stop();
+        thread.interrupt();
         task.cancel(true);
         //必须解绑
         unbindService(connection);
