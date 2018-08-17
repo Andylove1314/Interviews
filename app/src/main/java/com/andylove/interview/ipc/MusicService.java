@@ -1,5 +1,6 @@
 package com.andylove.interview.ipc;
 
+import android.app.ActivityManager;
 import android.app.Service;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -28,7 +29,7 @@ public class MusicService extends Service {
 
         @Override
         public void playMusic(final String musicPath) throws RemoteException {
-
+            ActivityManager activityManagerNative = null;
             //回调告诉client
             callBack("开始播放");
             //异步播放音乐

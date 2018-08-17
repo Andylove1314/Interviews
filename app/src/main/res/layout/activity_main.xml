@@ -11,29 +11,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:padding="10dip"
         android:text="面试题知识点总结"
-        android:textSize="17sp"
-        android:padding="10dip"/>
+        android:textSize="17sp" />
 
 
     <Button
         android:id="@+id/interview_leak"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="内存泄露"/>
+        android:text="内存泄露" />
 
 
     <Button
         android:id="@+id/interview_oom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="内存溢出"/>
+        android:text="内存溢出" />
 
 
     <Button
         android:id="@+id/interview_ipc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="IPC通信"/>
+        android:text="IPC通信" />
 
 </LinearLayout>
