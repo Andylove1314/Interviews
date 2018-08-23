@@ -8,40 +8,31 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/thread_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dip"
-        android:text="面试题知识点总结"
+        android:text="线程"
         android:textSize="17sp" />
 
-
     <Button
-        android:id="@+id/interview_leak"
+        android:id="@+id/thread_start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="内存泄露" />
-
-
-    <Button
-        android:id="@+id/interview_oom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="内存溢出" />
-
+        android:text="开启线程" />
 
     <Button
-        android:id="@+id/interview_ipc"
+        android:id="@+id/thread_stop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="IPC通信" />
-
-
+        android:text="销毁线程" />
 
     <Button
-        android:id="@+id/interview_thread"
+        android:id="@+id/thread_safe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="线程" />
+        android:text="线程安全" />
+
 
 </LinearLayout>

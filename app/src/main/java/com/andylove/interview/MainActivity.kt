@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import com.andylove.interview.ipc.IPCActivity
 import com.andylove.interview.leak.LeakActivity
 import com.andylove.interview.oom.OomActivity
+import com.andylove.interview.thread.ThreadActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +23,9 @@ class MainActivity : AppCompatActivity() {
 
         interview_oom?.setOnClickListener {
             startActivity(Intent(this@MainActivity, OomActivity::class.java))
+        }
+        interview_thread?.setOnClickListener {
+            startActivity(Intent(this@MainActivity, ThreadActivity::class.java))
         }
 
     }

@@ -35,9 +35,11 @@
             android:name=".leak.MyService"
             android:enabled="true"
             android:exported="true"/>
-
-
         <activity android:name=".oom.OomActivity" />
+
+        <activity android:name=".thread.ThreadActivity"/>
+        <activity android:name=".thread.ThreadSafeActivity"/>
+
     </application>
 
 </manifest>

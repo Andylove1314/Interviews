@@ -167,4 +167,145 @@
           } 
           
  五，工作线程
+   工作线程，即大家熟知的子线程， android框架提供的工作线程都有哪些？
+  
+    1，AsyncTask
+     
+     要使用它，必须创建 AsyncTask 的子类并实现 doInBackground() 回调方法，该方法将在后台线程池中运行。 要更新 UI，应该实现 onPostExecute() 以传递 doInBackground() 返回的结果并在 UI 线程中运行，以便您安全地更新 UI。
+     稍后，您可以通过从 UI 线程调用 execute() 来运行任务。
+    下面简要概述了 AsyncTask 的工作方法，但要全面了解如何使用此类，您应阅读 AsyncTask 参考文档：
+    可以使用泛型指定参数类型、进度值和任务最终值
+    方法 doInBackground() 会在工作线程上自动执行
+    onPreExecute()、onPostExecute() 和 onProgressUpdate() 均在 UI 线程中调用
+    doInBackground() 返回的值将发送到 onPostExecute()
+    您可以随时在 doInBackground() 中调用publishProgress()，以在 UI 线程中执行 onProgressUpdate()
+    您可以随时取消任何线程中的任务。
  
+    本AsyncTask类是需要快速从主线程移动工作到工作线程应用程序的简单，实用的原始。例如，输入事件可能会触发使用加载的位图更新UI的需要。一个AsyncTask 对象可以卸载位图加载和解码到一个备用线程; 一旦该处理完成，该AsyncTask对象就可以管理在主线程上接收工作以更新UI。
+    
+    使用时AsyncTask，请记住一些重要的性能方面。首先，默认情况下，应用程序将AsyncTask 其创建的所有对象推送到单个线程中。因此，它们以串行方式执行，并且 - 与主线程一样 - 特别长的工作包可以阻塞队列。因此，我们建议您仅用于AsyncTask处理持续时间小于5毫秒的工作项。
+    
+    AsyncTask对象也是隐式引用问题最常见的违规者。 AsyncTask对象也存在与显式引用相关的风险，但这些风险有时更容易解决。例如，AsyncTask 可能需要引用UI对象，以便AsyncTask在主线程上执行其回调后正确更新UI对象。在这种情况下，您可以使用 WeakReference 来存储对所需UI对象的引用，并AsyncTask在主线程上运行后访问该对象 。要清楚，保持WeakReference 对象不会使对象成为线程安全的; 在 WeakReference仅提供处理与明确提到和垃圾收集问题的方法。
+ 
+    2，HandlerThread
+     
+     虽然AsyncTask 它很有用， 但它可能并不总是解决您的线程问题的正确方法。相反，您可能需要一种更传统的方法来在较长时间运行的线程上执行工作块，以及一些手动管理该工作流的功能。
+     
+     考虑从Camera对象获取预览帧的常见挑战 。当您注册Camera预览帧时，您将在onPreviewFrame() 回调中接收它们，该 回调在调用它的事件线程上调用。如果在UI线程上调用此回调，则处理大像素阵列的任务将干扰渲染和事件处理工作。同样的问题适用于AsyncTask，它也连续执行作业并且易受阻塞。
+     
+     这种情况下处理程序线程是合适的：处理程序线程实际上是一个长时间运行的线程，它从队列中抓取工作并对其进行操作。在此示例中，当您的应用程序将Camera.open()命令委托 给处理程序线程上的工作块时，关联的 onPreviewFrame() 回调将位于处理程序线程上，而不是UI或AsyncTask 线程上。因此，如果您要对像素进行长时间的工作，这对您来说可能是更好的解决方案。
+     
+     当您的应用程序使用创建线程时HandlerThread，不要忘记 根据其正在进行的工作类型设置线程的 优先级。请记住，CPU只能并行处理少量线程。设置优先级有助于系统知道在所有其他线程争夺注意力时安排此工作的正确方法。
+     
+     3，ThreadPoolExecutor
+     
+      某些类型的工作可以简化为高度并行的分布式任务。例如，一个这样的任务是为800万像素图像的每个8×8块计算滤波器。由于大量的工作包，这会创建，而不是适当的类。单线程性质会将所有线程化工作转变为线性系统。另一方面，使用该类需要程序员手动管理一组线程之间的负载平衡。 AsyncTaskHandlerThreadAsyncTaskHandlerThread
+      
+      ThreadPoolExecutor是一个帮助类，使这个过程更容易。此类管理一组线程的创建，设置其优先级，并管理这些线程之间的工作分配方式。随着工作负载的增加或减少，类会旋转或销毁更多线程以适应工作负载。
+     
+      此类还可以帮助您的应用程序生成最佳线程数。在构造ThreadPoolExecutor 对象时，应用程序会设置最小和最大线程数。作为ThreadPoolExecutor增加的工作量 ，类将考虑初始化的最小和最大线程计数，并考虑待处理的待处理工作量。基于这些因素，ThreadPoolExecutor决定在任何给定时间应该有多少线程存活。
+      
+      一个ExecutorService执行使用可能的几个池线程之一，通常用配置的每个提交的任务Executors工厂方法。
+      
+      线程池解决了两个不同的问题：它们通常在执行大量异步任务时提供改进的性能，这是由于减少了每个任务的调用开销，并且它们提供了一种绑定和管理资源的方法，包括执行集合时所消耗的线程。任务。每个ThreadPoolExecutor还维护一些基本统计数据，例如已完成任务的数量。
+      
+      为了在各种上下文中有用，该类提供了许多可调参数和可扩展性钩子。
+      但是，程序员被要求使用更方便的 Executors工厂方法Executors.newCachedThreadPool()（无界线程池，具有自动线程回收），Executors.newFixedThreadPool(int) （固定大小线程池）和Executors.newSingleThreadExecutor()（单个后台线程），为最常见的使用场景预配置设置。
+      
+      线程池构造：
+      ThreadPoolExecutor(int corePoolSize,
+                         int maximumPoolSize,
+                         long keepAliveTime,
+                         TimeUnit unit,
+                         BlockingQueue<Runnable> workQueue) 
+                         
+      ThreadPoolExecutor(int corePoolSize,
+                         int maximumPoolSize,
+                         long keepAliveTime,
+                         TimeUnit unit,
+                         BlockingQueue<Runnable> workQueue,
+                         ThreadFactory threadFactory)
+                         
+      ThreadPoolExecutor(int corePoolSize,
+                         int maximumPoolSize,
+                         long keepAliveTime,
+                         TimeUnit unit,
+                         BlockingQueue<Runnable> workQueue,
+                         RejectedExecutionHandler handler)
+                         
+      ThreadPoolExecutor(int corePoolSize,
+                         int maximumPoolSize,
+                         long keepAliveTime,
+                         TimeUnit unit,
+                         BlockingQueue<Runnable> workQueue,
+                         ThreadFactory threadFactory,
+                         RejectedExecutionHandler handler)        
+      构造方法参数说明：
+      corePoolSize
+      核心线程数，默认情况下核心线程会一直存活，即使处于闲置状态也不会受存keepAliveTime限制。除非将allowCoreThreadTimeOut设置为true。
+      
+      maximumPoolSize
+      线程池所能容纳的最大线程数。超过这个数的线程将被阻塞。当任务队列为没有设置大小的LinkedBlockingDeque时，这个值无效。
+      
+      keepAliveTime
+      非核心线程的闲置超时时间，超过这个时间就会被回收。
+      
+      unit
+      指定keepAliveTime的单位，如TimeUnit.SECONDS。当将allowCoreThreadTimeOut设置为true时对corePoolSize生效。
+      
+      workQueue
+      线程池中的任务队列.
+      常用的有三种队列，SynchronousQueue,LinkedBlockingDeque,ArrayBlockingQueue。
+      
+      threadFactory
+      线程工厂，提供创建新线程的功能。ThreadFactory是一个接口，只有一个方法
+      public interface ThreadFactory {
+        Thread newThread(Runnable r);
+      }           
+      
+ 六，线程安全
+  
+  如果你的代码所在的进程中有多个线程在同时运行，而这些线程可能会同时运行这段代码。
+  如果每次运行结果和单线程运行的结果是一样的，而且其他的变量的值也和预期的是一样的，就是线程安全的。
+  或者说:一个类或者程序所提供的接口对于线程来说是原子操作或者多个线程之间的切换不会导致该接口的执行结果存在二义性,也就是说我们不用考虑同步的问题 。
+  
+  1，主线程（UI线程）安全问题
+  
+    当一个程序第一次启动的时候，Android会启动一个LINUX进程和一个主线程。默认的情况下，所有该程序的组件都将在该进程和线程中运行 。主线程（Main Thread）主要负责处理与UI相关的事件，如：用户的按键事件，用户接触屏幕的事件以及屏幕绘图事 件，并把相关的事件分发到对应的组件进行处理。所以主线程通常又被叫做UI线程。
+    系统不会为每个组件单独创建线程，在同一个进程里的UI组件都会在UI线程里实例化，系统对每一个组件的调用都从UI线程分发出去。结果就是，响应系统回调的方法（比如响应用户动作的onKeyDown()和各种生命周期回调）永远都是在UI线程里运行。
+    UI线程才能与Android UI工具包中的组件进行交互，在开发Android应用时必须遵守单线成原则：
+    
+    （1）Android UI操作并不是线程安全的并且这些操作必须在UI线程中执行。
+      android UI 中提供invalidate（）来更新界面，而invalidate（）方法是线程不安全。
+      Android提供了Invalidate方法实现界面刷新，但是Invalidate不能直接在非UI主线程中调用，因为他是违背了单线程模型：Android UI操作并不是线程安全的，并且这些操作必须在UI线程中调用。例如：在非UI线程中调用invalidate会导致线程不安全，也就是说可能在非UI线程中刷新界面的时候，UI线程(或者其他非UI线程)也在刷新界面，这样就导致多个界面刷新的操作不能同步，导致线程不安全
+      
+    （2）不要阻塞UI线程。
+      为了用户体验，在app要及时响应用户及系统的触发，所以在UI线程里，切记不要做太多的操作，否则影响到用户体验，系统直接告诉你ANR,然后让你关掉你的垃圾。
+   
+  2，工作线程安全问题
+    
+    （1）不安全的根本原因：
+    1.存在两个或者两个以上的线程对象共享同一个资源。
+    2.多线程操作共享资源代码有多个语句。
+    
+    （2）线程安全问题的解决方案
+        方式一：同步代码块
+        格式：synchronize（锁对象）{
+                      //需要被同步的代码
+                   }
+        同步代码块需要注意的事项：（例子代码看demo）
+            1.锁对象可以是任意的一个对象；
+            2.一个线程在同步代码块中sleep了，并不会释放锁对象；
+            3.如果不存在线程安全问题，千万不要使用同步代码块；
+            4.锁对象必须是多线程共享的一个资源，否则锁不住。
+            
+        方式二：同步方法（同步函数就是使用synchronized修饰一个函数）
+        同步函数注意事项：
+            1.如果函数是一个非静态的同步函数，那么锁对象是this对象；
+            2.如果函数是静态的同步函数，那么锁对象是当前函数所属的类的字节码文件（class对象）；
+            3.同步函数的锁对象是固定的，不能由自己指定。
+    
+        推荐使用：同步代码块
+        原因：
+          1.同步代码块的锁对象可以由我们自由指定，方便控制；
+          2.同步代码块可以方便的控制需要被同步代码的范围，同步函数必须同步函数的所有代码。

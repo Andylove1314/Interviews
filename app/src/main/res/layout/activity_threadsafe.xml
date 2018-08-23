@@ -12,36 +12,20 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dip"
-        android:text="面试题知识点总结"
+        android:text="线程同步"
         android:textSize="17sp" />
 
-
     <Button
-        android:id="@+id/interview_leak"
+        android:id="@+id/thread_syn_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="内存泄露" />
-
-
-    <Button
-        android:id="@+id/interview_oom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="内存溢出" />
-
+        android:text="代码锁" />
 
     <Button
-        android:id="@+id/interview_ipc"
+        android:id="@+id/thread_syn_method"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="IPC通信" />
+        android:text="方法锁" />
 
-
-
-    <Button
-        android:id="@+id/interview_thread"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="线程" />
 
 </LinearLayout>
