@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".eventdistribution.EventActivity">
+
+    <com.andylove.interview.eventdistribution.EventViewGroup
+        android:id="@+id/event_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/event_child"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="20dip"
+            android:text="点击"
+            android:background="@android:color/black"
+            android:textColor="@android:color/holo_red_dark" />
+
+    </com.andylove.interview.eventdistribution.EventViewGroup>
+
+
+</LinearLayout>

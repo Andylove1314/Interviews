@@ -36,12 +36,23 @@
         android:layout_height="wrap_content"
         android:text="IPC通信" />
 
-
-
     <Button
         android:id="@+id/interview_thread"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="线程" />
+
+    <Button
+        android:id="@+id/interview_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="事件分发" />
+
+
+    <Button
+        android:id="@+id/interview_pattern"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="设计模式" />
 
 </LinearLayout>

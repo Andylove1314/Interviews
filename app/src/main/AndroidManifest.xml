@@ -39,6 +39,8 @@
 
         <activity android:name=".thread.ThreadActivity"/>
         <activity android:name=".thread.ThreadSafeActivity"/>
+        <activity android:name=".eventdistribution.EventActivity"/>
+        <activity android:name=".pattern.PatternActivity"/>
 
     </application>
 
