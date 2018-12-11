@@ -16,4 +16,5 @@ public class PatternActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pattern);
     }
+
 }

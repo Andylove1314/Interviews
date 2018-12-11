@@ -4,44 +4,33 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
-public class EventViewGroup extends LinearLayout {
-    public EventViewGroup(Context context) {
+public class EventView extends View {
+    public EventView(Context context) {
         super(context);
         init();
 
     }
 
-    public EventViewGroup(Context context, AttributeSet attrs) {
+    public EventView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
 
     }
 
-    public EventViewGroup(Context context, AttributeSet attrs, int defStyleAttr) {
+    public EventView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
 
     }
 
-    public EventViewGroup(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public EventView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }
 
     private void init() {
-        requestDisallowInterceptTouchEvent(true);
-        setOrientation(VERTICAL);
-        setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Toast.makeText(getContext(), event.getAction()+"",Toast.LENGTH_SHORT).show();
-                //down为事件起点，必须返回true，才能继续其他事件，否则只有down
-                return true;
-            }
-        });
+
     }
 
     @Override
@@ -57,11 +46,6 @@ public class EventViewGroup extends LinearLayout {
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return false;
     }
 
     @Override

@@ -34,7 +34,7 @@ public class ThreadActivity extends Activity {
     private ThreadPoolExecutor mThreadPoolExec;
     private static final int MAX_POOL_SIZE = 4;
     private static final int KEEP_ALIVE = 1;
-    BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<>();
+    BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue();
 
     @SuppressLint("WrongViewCast")
     @Override

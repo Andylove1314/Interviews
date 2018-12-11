@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
         interview_ipc?.setOnClickListener {
             startActivity(Intent(this@MainActivity, IPCActivity::class.java))
